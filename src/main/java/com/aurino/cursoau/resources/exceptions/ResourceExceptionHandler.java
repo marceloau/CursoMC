@@ -34,8 +34,8 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<ErrorPadrao> businessException(
 			BusinessException onfe, HttpServletRequest request){
 		
-		ErrorPadrao err = new ErrorPadrao(HttpStatus.NOT_FOUND.value(), onfe.getMessage(), System.currentTimeMillis());
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+		ErrorPadrao err = new ErrorPadrao(HttpStatus.CONFLICT.value(), onfe.getMessage(), System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(err);
 	}
 
 }
