@@ -12,7 +12,7 @@ public class CategoriaFacade {
 	@Autowired
 	private ICategoriaBusiness iCategoriaBusiness;
 	
-	public Categoria buscarPorCodigo(final Integer codigoCategoria) {
+	public Categoria buscarPorCodigo(final Long codigoCategoria) {
 		
 		final Categoria categoria = iCategoriaBusiness.buscarPorCodigo(codigoCategoria);
 		

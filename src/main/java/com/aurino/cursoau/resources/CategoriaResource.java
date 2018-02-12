@@ -18,7 +18,7 @@ public class CategoriaResource {
 	private CategoriaFacade categoriaFacade;
 	
 	@RequestMapping(value = "/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> buscarPorCodigo(@PathVariable Integer id) {
+	public ResponseEntity<?> buscarPorCodigo(@PathVariable Long id) {
 		
 		final Categoria categoria = categoriaFacade.buscarPorCodigo(id);
 		

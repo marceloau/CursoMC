@@ -14,7 +14,7 @@ public class CategoriaBusiness implements ICategoriaBusiness {
 	private CategoriaDAO categoriaDAO;
 	
 	@Override
-	public Categoria buscarPorCodigo(final Integer codigoCategoria) {
+	public Categoria buscarPorCodigo(final Long codigoCategoria) {
 		
 		final Categoria categoria = categoriaDAO.findOne(codigoCategoria);
 		

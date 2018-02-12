@@ -7,6 +7,6 @@ import com.aurino.cursoau.dominio.Categoria;
 @Component
 public interface ICategoriaBusiness {
 
-	public Categoria buscarPorCodigo(final Integer codigoCategoria);
+	public Categoria buscarPorCodigo(final Long codigoCategoria);
 	
 }

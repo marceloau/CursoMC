@@ -1,6 +1,7 @@
 package com.aurino.cursoau.dominio;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,13 +9,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "categorias")
-public class Categoria implements Serializable {
+@Table(name="produtos")
+public class Produto implements Serializable{
 	
 	/**
 	 * 
@@ -25,48 +27,82 @@ public class Categoria implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="codigo")
 	private Long id;
-	
-	@NotNull
-	@Column(name="nome", nullable=false)
+	@Column(name="nome")
 	private String nome;
+	@Column(name="preco")
+	private BigDecimal preco;
 	
-	@ManyToMany(mappedBy="categorias")
-	private List<Produto> produtos;
-	
-	public Categoria() {
+	@ManyToMany
+	@JoinTable(name="produto_categoria",
+		joinColumns = @JoinColumn(name="codigoProduto", referencedColumnName = "codigo"),
+		inverseJoinColumns = @JoinColumn(name = "codigoCategoria", referencedColumnName = "codigo")
+			)
+	private List<Categoria> categorias;
+
+	public Produto() {
 	}
 	
-	public Categoria(Long id, String nome) {
+	public Produto(Long id, String nome, BigDecimal preco) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.preco = preco;
 	}
-
+	
+	/**
+	 * @return the id
+	 */
 	public Long getId() {
 		return id;
 	}
+
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	/**
+	 * @return the nome
+	 */
 	public String getNome() {
 		return nome;
 	}
+
+	/**
+	 * @param nome the nome to set
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
 	/**
-	 * @return the produtos
+	 * @return the preco
 	 */
-	public List<Produto> getProdutos() {
-		return produtos;
+	public BigDecimal getPreco() {
+		return preco;
 	}
 
 	/**
-	 * @param produtos the produtos to set
+	 * @param preco the preco to set
 	 */
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
+
+	/**
+	 * @return the categorias
+	 */
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	/**
+	 * @param categorias the categorias to set
+	 */
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 
 	/* (non-Javadoc)
@@ -91,7 +127,7 @@ public class Categoria implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Produto other = (Produto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
