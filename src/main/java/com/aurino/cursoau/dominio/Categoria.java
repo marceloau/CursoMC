@@ -2,6 +2,16 @@ package com.aurino.cursoau.dominio;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "categorias")
 public class Categoria implements Serializable {
 	
 	/**
@@ -9,7 +19,13 @@ public class Categoria implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Integer CategoriaPK;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="codigo")
+	private Integer categoriaPK;
+	
+	@NotNull
+	@Column(name="nome", nullable=false)
 	private String nome;
 	
 	public Categoria() {
@@ -17,15 +33,15 @@ public class Categoria implements Serializable {
 	
 	public Categoria(Integer categoriaPK, String nome) {
 		super();
-		CategoriaPK = categoriaPK;
+		categoriaPK = categoriaPK;
 		this.nome = nome;
 	}
 
 	public Integer getCategoriaPK() {
-		return CategoriaPK;
+		return categoriaPK;
 	}
 	public void setCategoriaPK(Integer categoriaPK) {
-		CategoriaPK = categoriaPK;
+		categoriaPK = categoriaPK;
 	}
 	public String getNome() {
 		return nome;
@@ -41,7 +57,7 @@ public class Categoria implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((CategoriaPK == null) ? 0 : CategoriaPK.hashCode());
+		result = prime * result + ((categoriaPK == null) ? 0 : categoriaPK.hashCode());
 		return result;
 	}
 
@@ -57,10 +73,10 @@ public class Categoria implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Categoria other = (Categoria) obj;
-		if (CategoriaPK == null) {
-			if (other.CategoriaPK != null)
+		if (categoriaPK == null) {
+			if (other.categoriaPK != null)
 				return false;
-		} else if (!CategoriaPK.equals(other.CategoriaPK))
+		} else if (!categoriaPK.equals(other.categoriaPK))
 			return false;
 		return true;
 	}
