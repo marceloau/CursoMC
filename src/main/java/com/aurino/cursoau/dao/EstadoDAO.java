@@ -3,9 +3,9 @@ package com.aurino.cursoau.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.aurino.cursoau.dominio.Produto;
+import com.aurino.cursoau.dominio.Estado;
 
 @Repository
-public interface ProdutoDAO extends JpaRepository<Produto, Long> {
+public interface EstadoDAO extends JpaRepository<Estado, Long> {
 
 }
