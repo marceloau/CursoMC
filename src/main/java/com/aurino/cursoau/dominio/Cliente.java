@@ -53,6 +53,9 @@ public class Cliente implements Serializable{
 	@CollectionTable(name="telefones")
 	private Set<String> telefones;
 	
+	@OneToMany(mappedBy="cliente")
+	private List<Pedido> pedidos;
+	
 	/**
 	 * 
 	 */
@@ -202,5 +205,19 @@ public class Cliente implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	/**
+	 * @return the pedidos
+	 */
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	/**
+	 * @param pedidos the pedidos to set
+	 */
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 }
