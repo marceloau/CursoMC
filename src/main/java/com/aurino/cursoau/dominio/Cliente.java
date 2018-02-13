@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.aurino.cursoau.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * @author marcelo.aurino
@@ -44,6 +45,7 @@ public class Cliente implements Serializable{
 	@Column(name="codigoTipoCliente")
 	private Integer codigoTipoCliente;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="cliente")
 	private List<Endereco> enderecos;
 	

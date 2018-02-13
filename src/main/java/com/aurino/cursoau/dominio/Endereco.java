@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * @author marcelo.aurino
  *
@@ -41,6 +43,7 @@ public class Endereco implements Serializable {
 	@Column(name="cep")
 	private String cep;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
