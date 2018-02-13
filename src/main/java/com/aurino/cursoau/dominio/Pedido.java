@@ -61,11 +61,10 @@ public class Pedido implements Serializable{
 	 * @param cliente
 	 * @param enderecoEntrega
 	 */
-	public Pedido(Long id, Date dataPedido, Pagamento pagamento, Cliente cliente, Endereco enderecoEntrega) {
+	public Pedido(final Long id, final Date dataPedido, final Cliente cliente, final Endereco enderecoEntrega) {
 		super();
 		this.id = id;
 		this.dataPedido = dataPedido;
-		this.pagamento = pagamento;
 		this.cliente = cliente;
 		this.enderecoEntrega = enderecoEntrega;
 	}

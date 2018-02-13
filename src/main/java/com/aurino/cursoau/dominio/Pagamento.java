@@ -24,7 +24,7 @@ import com.aurino.cursoau.enums.StatusPagamento;
 @Entity
 @Table(name="pagamentos")
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Pagamento implements Serializable{
+public abstract class Pagamento implements Serializable{
 
 	/**
 	 * 
@@ -36,7 +36,7 @@ public class Pagamento implements Serializable{
 	@Column(name="codigo")
 	private Long id;
 	@Column(name="codigoStatus")
-	private StatusPagamento codigoStatus;
+	private Integer codigoStatus;
 	
 	@OneToOne
 	@JoinColumn(name="pedido_id")
@@ -54,10 +54,10 @@ public class Pagamento implements Serializable{
 	 * @param codigoStatus
 	 * @param pedido
 	 */
-	public Pagamento(Long id, StatusPagamento codigoStatus, Pedido pedido) {
+	public Pagamento(Long id, StatusPagamento statusPagamento, Pedido pedido) {
 		super();
 		this.id = id;
-		this.codigoStatus = codigoStatus;
+		this.codigoStatus = statusPagamento.getCodigo();
 		this.pedido = pedido;
 	}
 
@@ -79,14 +79,14 @@ public class Pagamento implements Serializable{
 	 * @return the codigoStatus
 	 */
 	public StatusPagamento getCodigoStatus() {
-		return codigoStatus;
+		return StatusPagamento.toEnum(codigoStatus);
 	}
 
 	/**
 	 * @param codigoStatus the codigoStatus to set
 	 */
-	public void setCodigoStatus(StatusPagamento codigoStatus) {
-		this.codigoStatus = codigoStatus;
+	public void setCodigoStatus(StatusPagamento statusPagamento) {
+		this.codigoStatus = statusPagamento.getCodigo();
 	}
 
 	/**
