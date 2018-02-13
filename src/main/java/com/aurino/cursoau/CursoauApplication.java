@@ -15,6 +15,7 @@ import com.aurino.cursoau.dao.CidadeDAO;
 import com.aurino.cursoau.dao.ClienteDAO;
 import com.aurino.cursoau.dao.EnderecoDAO;
 import com.aurino.cursoau.dao.EstadoDAO;
+import com.aurino.cursoau.dao.ItemPedidoDAO;
 import com.aurino.cursoau.dao.PagamentoDAO;
 import com.aurino.cursoau.dao.PedidoDAO;
 import com.aurino.cursoau.dao.ProdutoDAO;
@@ -23,6 +24,7 @@ import com.aurino.cursoau.dominio.Cidade;
 import com.aurino.cursoau.dominio.Cliente;
 import com.aurino.cursoau.dominio.Endereco;
 import com.aurino.cursoau.dominio.Estado;
+import com.aurino.cursoau.dominio.ItemPedido;
 import com.aurino.cursoau.dominio.Pagamento;
 import com.aurino.cursoau.dominio.PagamentoBoleto;
 import com.aurino.cursoau.dominio.PagamentoCartao;
@@ -57,6 +59,9 @@ public class CursoauApplication implements CommandLineRunner {
 	
 	@Autowired
 	private PagamentoDAO pagamentoDAO;
+	
+	@Autowired
+	private ItemPedidoDAO itemPedidoDAO;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoauApplication.class, args);
@@ -125,7 +130,17 @@ public class CursoauApplication implements CommandLineRunner {
 		pedidoDAO.save(Arrays.asList(pedido1, pedido2));
 		pagamentoDAO.save(Arrays.asList(pagamento1, pagamento2));
 		
+		final ItemPedido itemPedido1 = new ItemPedido(pedido1, produto1, BigDecimal.valueOf(0.00), 1, BigDecimal.valueOf(2000.00));
+		final ItemPedido itemPedido2 = new ItemPedido(pedido1, produto3, BigDecimal.valueOf(0.00), 2, BigDecimal.valueOf(80.00));
+		final ItemPedido itemPedido3 = new ItemPedido(pedido2, produto2, BigDecimal.valueOf(100.00), 1, BigDecimal.valueOf(800.00));
 		
+		pedido1.setItens(new HashSet<>(Arrays.asList(itemPedido1, itemPedido2)));
+		pedido2.setItens(new HashSet<>(Arrays.asList(itemPedido3)));
 		
+		produto1.setItens(new HashSet<>(Arrays.asList(itemPedido1)));
+		produto2.setItens(new HashSet<>(Arrays.asList(itemPedido3)));
+		produto3.setItens(new HashSet<>(Arrays.asList(itemPedido2)));
+		
+		itemPedidoDAO.save(Arrays.asList(itemPedido1, itemPedido2, itemPedido3));
 	}
 }

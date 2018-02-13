@@ -2,7 +2,9 @@ package com.aurino.cursoau.dominio;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -41,6 +44,9 @@ public class Produto implements Serializable{
 		inverseJoinColumns = @JoinColumn(name = "codigoCategoria", referencedColumnName = "codigo")
 			)
 	private List<Categoria> categorias;
+	
+	@OneToMany(mappedBy="itemPedidoPK.produto")
+	private Set<ItemPedido> itens;
 
 	public Produto() {
 	}
@@ -50,6 +56,14 @@ public class Produto implements Serializable{
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
+	}
+	
+	public List<Pedido> getPedidos(){
+		final List<Pedido> listaPedidos = new ArrayList<>();
+		for(final ItemPedido item : this.itens) {
+			listaPedidos.add(item.getPedido());
+		}
+		return listaPedidos;
 	}
 	
 	/**
@@ -108,6 +122,20 @@ public class Produto implements Serializable{
 		this.categorias = categorias;
 	}
 
+	/**
+	 * @return the itens
+	 */
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	/**
+	 * @param itens the itens to set
+	 */
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */

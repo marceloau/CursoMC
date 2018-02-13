@@ -5,6 +5,7 @@ package com.aurino.cursoau.dominio;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -47,6 +49,9 @@ public class Pedido implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="endereco_entrega_id")
 	private Endereco enderecoEntrega;
+	
+	@OneToMany(mappedBy="itemPedidoPK.pedido")
+	private Set<ItemPedido> itens;
 	
 	/**
 	 * 
@@ -137,6 +142,20 @@ public class Pedido implements Serializable{
 	 */
 	public void setEnderecoEntrega(Endereco enderecoEntrega) {
 		this.enderecoEntrega = enderecoEntrega;
+	}
+	
+	/**
+	 * @return the itens
+	 */
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	/**
+	 * @param itens the itens to set
+	 */
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
 	}
 
 	/* (non-Javadoc)
