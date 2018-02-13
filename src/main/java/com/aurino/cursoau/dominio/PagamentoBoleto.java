@@ -5,10 +5,12 @@ package com.aurino.cursoau.dominio;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.aurino.cursoau.enums.StatusPagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author marcelo.aurino
@@ -22,7 +24,11 @@ public class PagamentoBoleto extends Pagamento {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@JsonFormat(pattern="dd/MM/yyyy hh:mm:ss")
+	@Column(name="dataVencimento")
 	private Date dataVencimento;
+	@JsonFormat(pattern="dd/MM/yyyy hh:mm:ss")
+	@Column(name="dataPagamento")
 	private Date dataPagamento;
 	
 	/**

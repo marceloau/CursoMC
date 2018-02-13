@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.aurino.cursoau.enums.StatusPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * @author marcelo.aurino
@@ -32,12 +33,12 @@ public abstract class Pagamento implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	
 	@Column(name="codigo")
 	private Long id;
 	@Column(name="codigoStatus")
 	private Integer codigoStatus;
 	
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name="pedido_id")
 	@MapsId

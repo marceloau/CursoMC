@@ -3,6 +3,7 @@
  */
 package com.aurino.cursoau.dominio;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -21,6 +22,7 @@ public class PagamentoCartao extends Pagamento {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Column(name="numeroParcelas")
 	private Integer numeroParcelas;
 	
 	/**
