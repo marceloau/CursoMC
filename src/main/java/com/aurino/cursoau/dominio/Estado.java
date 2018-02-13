@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author marcelo.aurino
@@ -30,7 +30,7 @@ public class Estado {
 	@Column(name="nome")
 	private String nome;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy="estado")
 	private List<Cidade> cidades;
 
