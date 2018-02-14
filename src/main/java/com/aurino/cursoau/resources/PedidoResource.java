@@ -18,7 +18,7 @@ public class PedidoResource {
 	private PedidoFacade pedidoFacade;
 	
 	@RequestMapping(value = "/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> buscarPorCodigo(@PathVariable Long id) {
+	public ResponseEntity<Pedido> buscarPorCodigo(@PathVariable Long id) {
 		
 		final Pedido pedido = pedidoFacade.buscarPorCodigo(id);
 		

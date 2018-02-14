@@ -23,5 +23,9 @@ public class CategoriaFacade {
 	public Categoria salvar(final Categoria categoria) {
 		return iCategoriaBusiness.salvar(categoria);
 	}
+	
+	public Categoria atualizar(final Long codigoCategoria, final Categoria categoria) {
+		return iCategoriaBusiness.atualizar(codigoCategoria, categoria);
+	}
 
 }

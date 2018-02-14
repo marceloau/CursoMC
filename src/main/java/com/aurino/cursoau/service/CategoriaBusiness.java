@@ -35,4 +35,10 @@ public class CategoriaBusiness implements ICategoriaBusiness {
 		return categoriaDAO.save(categoria);
 	}
 	
+	@Override
+	public Categoria atualizar(final Long codigoCategoria, final Categoria categoria) {
+		this.buscarPorCodigo(codigoCategoria);
+		categoria.setId(codigoCategoria);
+		return categoriaDAO.save(categoria);
+	}
 }

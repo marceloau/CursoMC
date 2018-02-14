@@ -18,7 +18,7 @@ public class ProdutoResource {
 	private ProdutoFacade produtoFacade;
 	
 	@RequestMapping(value = "/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> buscarPorCodigo(@PathVariable Long id) {
+	public ResponseEntity<Produto> buscarPorCodigo(@PathVariable Long id) {
 		
 		final Produto cliente = produtoFacade.buscarPorCodigo(id);
 		
