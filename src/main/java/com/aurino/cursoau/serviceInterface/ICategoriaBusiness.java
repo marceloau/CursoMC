@@ -9,4 +9,6 @@ public interface ICategoriaBusiness {
 
 	public Categoria buscarPorCodigo(final Long codigoCategoria);
 	
+	public Categoria salvar(final Categoria codigoCategoria);
+	
 }

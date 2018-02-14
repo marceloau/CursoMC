@@ -19,5 +19,9 @@ public class CategoriaFacade {
 		return categoria;
 		
 	}
+	
+	public Categoria salvar(final Categoria categoria) {
+		return iCategoriaBusiness.salvar(categoria);
+	}
 
 }

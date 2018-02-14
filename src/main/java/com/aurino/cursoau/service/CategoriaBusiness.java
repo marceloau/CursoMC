@@ -29,4 +29,10 @@ public class CategoriaBusiness implements ICategoriaBusiness {
 		
 	}
 	
+	@Override
+	public Categoria salvar(final Categoria categoria) {
+		categoria.setId(null);
+		return categoriaDAO.save(categoria);
+	}
+	
 }
