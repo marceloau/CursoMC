@@ -6,6 +6,8 @@ package com.aurino.cursoau.type;
 import java.io.Serializable;
 import java.util.List;
 
+import com.aurino.cursoau.dominio.Categoria;
+
 /**
  * @author marcelo.aurino
  *
@@ -24,8 +26,20 @@ public class CategoriaType implements Serializable{
 	 * 
 	 */
 	public CategoriaType() {
-		// TODO Auto-generated constructor stub
 	}
+	
+
+	/**
+	 * @param codigoCategoria
+	 * @param nome
+	 * @param produtos
+	 */
+	public CategoriaType(Categoria categoria) {
+		super();
+		this.codigoCategoria = categoria.getId();
+		this.nome = categoria.getNome();
+	}
+
 
 	/**
 	 * @return the codigoCategoria

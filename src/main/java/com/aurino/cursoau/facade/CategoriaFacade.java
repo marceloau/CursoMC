@@ -3,6 +3,7 @@ package com.aurino.cursoau.facade;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import com.aurino.cursoau.dominio.Categoria;
@@ -33,6 +34,13 @@ public class CategoriaFacade {
 	
 	public List<Categoria> listarTodos() {
 		final List<Categoria> categorias = iCategoriaBusiness.listarTodos();
+		return categorias;
+	}
+	
+	public Page<Categoria> listarPorPagina(final Integer page, 
+			final Integer size, final String orderBy, final String direcao) {
+		final Page<Categoria> categorias = iCategoriaBusiness
+				.listarPorPagina(page, size, orderBy, direcao);
 		return categorias;
 	}
 

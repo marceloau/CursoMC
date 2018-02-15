@@ -3,6 +3,9 @@ package com.aurino.cursoau.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.aurino.cursoau.comum.Utils;
@@ -62,5 +65,11 @@ public class CategoriaBusiness implements ICategoriaBusiness {
 	public List<Categoria> listarTodos() {
 		final List<Categoria> categoria = categoriaDAO.findAll();
 		return categoria;
+	}
+	
+	public Page<Categoria> listarPorPagina(final Integer page, 
+			final Integer size, final String orderBy, final String direcao){
+		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(direcao), orderBy);
+		return categoriaDAO.findAll(pageRequest);
 	}
 }
