@@ -6,6 +6,9 @@ package com.aurino.cursoau.type;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.aurino.cursoau.dominio.Categoria;
 
 /**
@@ -19,6 +22,8 @@ public class CategoriaType implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long codigoCategoria;
+	@NotEmpty(message="Preenchimento Obrigatório")
+	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
 	private String nome;
 	private List<ProdutoType> produtos;
 	

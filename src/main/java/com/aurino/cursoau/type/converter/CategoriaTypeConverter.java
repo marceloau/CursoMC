@@ -35,6 +35,16 @@ public class CategoriaTypeConverter {
 		return categoriaType;
 	}
 	
+	public Categoria converterParaEntidade(final CategoriaType categoriaType) {
+		Categoria categoria = null;
+		if(categoriaType != null) {
+			categoria = new Categoria();
+			categoria.setId(categoriaType.getCodigoCategoria());
+			categoria.setNome(categoriaType.getNome());
+		}
+		return categoria;
+	}
+	
 	public List<CategoriaType> converterParaListaType(final List<Categoria> listaCategorias){
 		List<CategoriaType> listaCategoriasRetorno;
 		if(Utils.listaVaziaOuNula(listaCategorias)) {

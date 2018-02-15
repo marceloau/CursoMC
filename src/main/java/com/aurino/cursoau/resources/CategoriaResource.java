@@ -3,6 +3,8 @@ package com.aurino.cursoau.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +39,9 @@ public class CategoriaResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@RequestBody Categoria categoria){
-		categoria = categoriaFacade.salvar(categoria);
+	public ResponseEntity<Void> salvar(@Valid @RequestBody CategoriaType categoriaType){
+		final Categoria categoria = categoriaFacade.salvar(
+				categoriaTypeConvert.converterParaEntidade(categoriaType));
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
 				.buildAndExpand(categoria.getId())
@@ -47,8 +50,9 @@ public class CategoriaResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> atualizar(@PathVariable Long id, @RequestBody Categoria categoria){
-		categoria = categoriaFacade.atualizar(id, categoria);
+	public ResponseEntity<Void> atualizar(@PathVariable Long id, @Valid @RequestBody CategoriaType categoriaType){
+		categoriaFacade.atualizar(
+				id, categoriaTypeConvert.converterParaEntidade(categoriaType));
 		return ResponseEntity.noContent().build();
 	}
 	
