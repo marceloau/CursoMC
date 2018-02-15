@@ -1,5 +1,7 @@
 package com.aurino.cursoau.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,5 +56,11 @@ public class CategoriaBusiness implements ICategoriaBusiness {
 		}
 		
 		categoriaDAO.delete(codigoCategoria);
+	}
+	
+	@Override
+	public List<Categoria> listarTodos() {
+		final List<Categoria> categoria = categoriaDAO.findAll();
+		return categoria;
 	}
 }

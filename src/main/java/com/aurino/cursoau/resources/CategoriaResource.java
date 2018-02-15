@@ -1,6 +1,7 @@
 package com.aurino.cursoau.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.aurino.cursoau.dominio.Categoria;
 import com.aurino.cursoau.facade.CategoriaFacade;
+import com.aurino.cursoau.type.CategoriaType;
+import com.aurino.cursoau.type.converter.CategoriaTypeConverter;
 
 @RestController
 @RequestMapping(value="/categorias")
@@ -21,10 +24,14 @@ public class CategoriaResource {
 	@Autowired
 	private CategoriaFacade categoriaFacade;
 	
+	@Autowired
+	private CategoriaTypeConverter categoriaTypeConvert;
+	
 	@RequestMapping(value = "/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Categoria> buscarPorCodigo(@PathVariable Long id) {
+	public ResponseEntity<CategoriaType> buscarPorCodigo(@PathVariable Long id) {
 		final Categoria categoria = categoriaFacade.buscarPorCodigo(id);
-		return ResponseEntity.ok().body(categoria);
+		final CategoriaType retorno = categoriaTypeConvert.converterParaType(categoria);
+		return ResponseEntity.ok().body(retorno);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
@@ -47,6 +54,13 @@ public class CategoriaResource {
 	public ResponseEntity<Void> excluir(@PathVariable Long id) {
 		categoriaFacade.excluir(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<CategoriaType>> listarTodos() {
+		final List<Categoria> categorias = categoriaFacade.listarTodos();
+		final List<CategoriaType> retorno = categoriaTypeConvert.converterParaListaType(categorias);
+		return ResponseEntity.ok().body(retorno);
 	}
 
 }

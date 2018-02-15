@@ -1,5 +1,7 @@
 package com.aurino.cursoau.serviceInterface;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.aurino.cursoau.dominio.Categoria;
@@ -14,5 +16,7 @@ public interface ICategoriaBusiness {
 	public Categoria atualizar(final Long codigoCategoria, final Categoria categoria);
 	
 	public void excluir(final Long codigoCategoria);
+	
+	public List<Categoria> listarTodos();
 	
 }

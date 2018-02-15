@@ -1,5 +1,7 @@
 package com.aurino.cursoau.facade;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,11 +15,8 @@ public class CategoriaFacade {
 	private ICategoriaBusiness iCategoriaBusiness;
 	
 	public Categoria buscarPorCodigo(final Long codigoCategoria) {
-		
 		final Categoria categoria = iCategoriaBusiness.buscarPorCodigo(codigoCategoria);
-		
 		return categoria;
-		
 	}
 	
 	public Categoria salvar(final Categoria categoria) {
@@ -30,6 +29,11 @@ public class CategoriaFacade {
 	
 	public void excluir(final Long codigoCategoria) {
 		iCategoriaBusiness.excluir(codigoCategoria);
+	}
+	
+	public List<Categoria> listarTodos() {
+		final List<Categoria> categorias = iCategoriaBusiness.listarTodos();
+		return categorias;
 	}
 
 }
