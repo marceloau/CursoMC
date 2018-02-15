@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -32,10 +34,20 @@ public class ResourceExceptionHandler {
 	
 	@ExceptionHandler(BusinessException.class)
 	public ResponseEntity<ErrorPadrao> businessException(
-			BusinessException onfe, HttpServletRequest request){
+			BusinessException businessException, HttpServletRequest request){
 		
-		ErrorPadrao err = new ErrorPadrao(HttpStatus.CONFLICT.value(), onfe.getMessage(), System.currentTimeMillis());
+		ErrorPadrao err = new ErrorPadrao(HttpStatus.CONFLICT.value(), businessException.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(err);
 	}
-
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ErrorPadrao> validation(
+			MethodArgumentNotValidException manv, HttpServletRequest request){
+		
+		ValidacaoError err = new ValidacaoError(HttpStatus.CONFLICT.value(), "Erro de Validação de Campos", System.currentTimeMillis());
+		for(final FieldError fieldError : manv.getBindingResult().getFieldErrors()) {
+			err.adicionarErro(fieldError.getField(), fieldError.getDefaultMessage());
+		}
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(err);
+	}
 }
