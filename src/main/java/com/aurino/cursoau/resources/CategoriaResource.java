@@ -42,5 +42,11 @@ public class CategoriaResource {
 		categoria = categoriaFacade.atualizar(id, categoria);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@RequestMapping(value = "/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> excluir(@PathVariable Long id) {
+		categoriaFacade.excluir(id);
+		return ResponseEntity.noContent().build();
+	}
 
 }

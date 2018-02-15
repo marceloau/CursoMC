@@ -27,5 +27,9 @@ public class CategoriaFacade {
 	public Categoria atualizar(final Long codigoCategoria, final Categoria categoria) {
 		return iCategoriaBusiness.atualizar(codigoCategoria, categoria);
 	}
+	
+	public void excluir(final Long codigoCategoria) {
+		iCategoriaBusiness.excluir(codigoCategoria);
+	}
 
 }

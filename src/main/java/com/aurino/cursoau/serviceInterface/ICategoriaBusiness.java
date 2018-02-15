@@ -13,4 +13,6 @@ public interface ICategoriaBusiness {
 	
 	public Categoria atualizar(final Long codigoCategoria, final Categoria categoria);
 	
+	public void excluir(final Long codigoCategoria);
+	
 }

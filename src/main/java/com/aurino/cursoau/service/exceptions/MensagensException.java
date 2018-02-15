@@ -6,7 +6,13 @@ public enum MensagensException {
 	 * Mensagem registro não encontrado.
 	 */
 	REGISTRO_NAO_ENCONTRADO("error.business.registroNaoEncontrado",
-			"Não foi encontrado nenhum registro com estes parametros de busca.");
+			"Não foi encontrado nenhum registro com estes parametros de busca."),
+	
+	/**
+	 * Mensagem registro não encontrado.
+	 */
+	CATEGORIA_COM_PRODUTOS("error.business.categoriaComProdutos",
+			"Não é possível excluir uma categoria com produtos associados a mesma.");
 	
 	/**
 	 * String for message code.
