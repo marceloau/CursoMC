@@ -12,7 +12,13 @@ public enum MensagensException {
 	 * Mensagem registro não encontrado.
 	 */
 	CATEGORIA_COM_PRODUTOS("error.business.categoriaComProdutos",
-			"Não é possível excluir uma categoria com produtos associados a mesma.");
+			"Não é possível excluir uma categoria com produtos associados a mesma."),
+	
+	/**
+	 * Mensagem registro não encontrado.
+	 */
+	CLIENTE_COM_PEDIDOS("error.business.clienteComPedidos",
+			"Não é possível excluir um cliente com pedidos associados ao mesmo.");
 	
 	/**
 	 * String for message code.

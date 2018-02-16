@@ -140,6 +140,13 @@ public class Cliente implements Serializable{
 	public TipoCliente getTipoCliente() {
 		return TipoCliente.toEnum(this.codigoTipoCliente);
 	}
+	
+	/**
+	 * @return the tipoCliente
+	 */
+	public Integer getCodigoTipoCliente() {
+		return codigoTipoCliente;
+	}
 
 	/**
 	 * @param tipoCliente the tipoCliente to set
