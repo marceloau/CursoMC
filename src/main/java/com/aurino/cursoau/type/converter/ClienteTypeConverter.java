@@ -40,7 +40,7 @@ public class ClienteTypeConverter {
 			clienteType.setCpfCNPJ(cliente.getCpfCNPJ());
 			clienteType.setCodigoTipoCliente(cliente.getCodigoTipoCliente());
 			clienteType.setEnderecos(enderecoTypeConverter.converterParaListaType(cliente.getEnderecos()));
-			clienteType.setTelefones(cliente.getTelefones());
+			clienteType.setContatos(cliente.getContatos());
 		}
 		return clienteType;
 	}
@@ -55,7 +55,7 @@ public class ClienteTypeConverter {
 			cliente.setCpfCNPJ(clienteType.getCpfCNPJ());
 			cliente.setTipoCliente(TipoCliente.toEnum(clienteType.getCodigoTipoCliente()));
 			cliente.setEnderecos(enderecoTypeConverter.converterParaListaEntidade(clienteType.getEnderecos()));
-			cliente.setTelefones(clienteType.getTelefones());
+			cliente.setContatos(clienteType.getContatos());
 		}
 		return cliente;
 	}

@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -14,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -45,12 +47,12 @@ public class Cliente implements Serializable{
 	@Column(name="codigoTipoCliente")
 	private Integer codigoTipoCliente;
 	
-	@OneToMany(mappedBy="cliente")
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos;
 	
 	@ElementCollection
-	@CollectionTable(name="telefones")
-	private Set<String> telefones;
+	@CollectionTable(name="contatos", joinColumns = @JoinColumn(name="codigoCliente"))
+	private Set<Contato> contatos;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="cliente")
@@ -170,17 +172,17 @@ public class Cliente implements Serializable{
 	}
 
 	/**
-	 * @return the telefones
+	 * @return the contatos
 	 */
-	public Set<String> getTelefones() {
-		return telefones;
+	public Set<Contato> getContatos() {
+		return contatos;
 	}
 
 	/**
-	 * @param telefones the telefones to set
+	 * @param contatos the contatos to set
 	 */
-	public void setTelefones(Set<String> telefones) {
-		this.telefones = telefones;
+	public void setContatos(Set<Contato> contatos) {
+		this.contatos = contatos;
 	}
 
 	/* (non-Javadoc)

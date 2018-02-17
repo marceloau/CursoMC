@@ -22,6 +22,7 @@ import com.aurino.cursoau.dao.ProdutoDAO;
 import com.aurino.cursoau.dominio.Categoria;
 import com.aurino.cursoau.dominio.Cidade;
 import com.aurino.cursoau.dominio.Cliente;
+import com.aurino.cursoau.dominio.Contato;
 import com.aurino.cursoau.dominio.Endereco;
 import com.aurino.cursoau.dominio.Estado;
 import com.aurino.cursoau.dominio.ItemPedido;
@@ -104,7 +105,10 @@ public class CursoauApplication implements CommandLineRunner {
 		
 		final Cliente cliente1 = new Cliente(null, "Marcelo Aurino", "marceloaurino2207@gmail.com", "09566409400", TipoCliente.PESSOAFISICA);
 		
-		cliente1.setTelefones(new HashSet<>(Arrays.asList("35421321", "997559668")));
+		final Contato contato1 = new Contato("nome", "35421321", 1);
+		final Contato contato2 = new Contato("nome", "997559668", 2);
+		
+		cliente1.setContatos(new HashSet<>(Arrays.asList(contato1, contato2)));
 		
 		final Endereco endereco1 = new Endereco(null, "Rua Flores", "300", "Apto. 303", "Jardim", "38220834", cliente1, cidade1);
 		final Endereco endereco2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "53510330", cliente1, cidade2);

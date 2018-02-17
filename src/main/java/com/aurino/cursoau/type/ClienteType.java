@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.aurino.cursoau.dominio.Cliente;
+import com.aurino.cursoau.dominio.Contato;
 
 /**
  * @author marcelo.aurino
@@ -35,7 +36,7 @@ public class ClienteType implements Serializable{
 	private String cpfCNPJ;
 	private Integer codigoTipoCliente;
 	private List<EnderecoType> enderecos;
-	private Set<String> telefones;
+	private Set<Contato> contatos;
 	
 	/**
 	 * 
@@ -151,17 +152,17 @@ public class ClienteType implements Serializable{
 
 
 	/**
-	 * @return the telefones
+	 * @return the contatos
 	 */
-	public Set<String> getTelefones() {
-		return telefones;
+	public Set<Contato> getContatos() {
+		return contatos;
 	}
 
 
 	/**
-	 * @param telefones the telefones to set
+	 * @param contatos the contatos to set
 	 */
-	public void setTelefones(Set<String> telefones) {
-		this.telefones = telefones;
+	public void setContatos(Set<Contato> contatos) {
+		this.contatos = contatos;
 	}
 }

@@ -5,18 +5,25 @@ package com.aurino.cursoau.dominio;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 /**
  * @author marcelo.aurino
  *
  */
+@Embeddable
 public class Contato implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Column(name="nome")
 	private String nome;
+	@Column(name="telefone")
 	private String telefone;
+	@Column(name="codigoTipoContato")
 	private Integer codigoTipoContato;
 
 	/**
