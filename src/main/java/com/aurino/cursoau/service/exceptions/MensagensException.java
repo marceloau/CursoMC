@@ -9,16 +9,22 @@ public enum MensagensException {
 			"Não foi encontrado nenhum registro com estes parametros de busca."),
 	
 	/**
-	 * Mensagem registro não encontrado.
+	 * Mensagem categoria com produtos associados.
 	 */
 	CATEGORIA_COM_PRODUTOS("error.business.categoriaComProdutos",
 			"Não é possível excluir uma categoria com produtos associados a mesma."),
 	
 	/**
-	 * Mensagem registro não encontrado.
+	 * Mensagem cliente com pedidos associados.
 	 */
 	CLIENTE_COM_PEDIDOS("error.business.clienteComPedidos",
-			"Não é possível excluir um cliente com pedidos associados ao mesmo.");
+			"Não é possível excluir um cliente com pedidos associados ao mesmo."),
+	
+	/**
+	 * Mensagem cliente com pedidos associados.
+	 */
+	ENDERECO_SEM_CIDADE("error.business.enderecoSemCidade",
+			"Não é possível salvar um endereço sem ter uma cidade informada.");
 	
 	/**
 	 * String for message code.

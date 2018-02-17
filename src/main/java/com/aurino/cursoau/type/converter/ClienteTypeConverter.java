@@ -6,6 +6,7 @@ package com.aurino.cursoau.type.converter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.aurino.cursoau.comum.Utils;
@@ -20,6 +21,9 @@ import com.aurino.cursoau.type.ClienteType;
 @Component
 public class ClienteTypeConverter {
 
+	@Autowired
+	private EnderecoTypeConverter enderecoTypeConverter;
+	
 	/**
 	 * 
 	 */
@@ -35,6 +39,8 @@ public class ClienteTypeConverter {
 			clienteType.setEmail(cliente.getEmail());
 			clienteType.setCpfCNPJ(cliente.getCpfCNPJ());
 			clienteType.setCodigoTipoCliente(cliente.getCodigoTipoCliente());
+			clienteType.setEnderecos(enderecoTypeConverter.converterParaListaType(cliente.getEnderecos()));
+			clienteType.setTelefones(cliente.getTelefones());
 		}
 		return clienteType;
 	}
@@ -48,6 +54,8 @@ public class ClienteTypeConverter {
 			cliente.setEmail(clienteType.getEmail());
 			cliente.setCpfCNPJ(clienteType.getCpfCNPJ());
 			cliente.setTipoCliente(TipoCliente.toEnum(clienteType.getCodigoTipoCliente()));
+			cliente.setEnderecos(enderecoTypeConverter.converterParaListaEntidade(clienteType.getEnderecos()));
+			cliente.setTelefones(clienteType.getTelefones());
 		}
 		return cliente;
 	}

@@ -44,9 +44,9 @@ public class CategoriaBusiness implements ICategoriaBusiness {
 	
 	@Override
 	public Categoria atualizar(final Long codigoCategoria, final Categoria categoria) {
-		this.buscarPorCodigo(codigoCategoria);
-		categoria.setId(codigoCategoria);
-		return categoriaDAO.save(categoria);
+		final Categoria categoriaNova = this.buscarPorCodigo(codigoCategoria);
+		atualizarDadosCategoria(categoriaNova, categoria);
+		return categoriaDAO.save(categoriaNova);
 	}
 	
 	@Override
@@ -71,5 +71,9 @@ public class CategoriaBusiness implements ICategoriaBusiness {
 			final Integer size, final String orderBy, final String direcao){
 		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(direcao), orderBy);
 		return categoriaDAO.findAll(pageRequest);
+	}
+	
+	private void atualizarDadosCategoria(final Categoria novaCategoria, final Categoria categoria) {
+		novaCategoria.setNome(categoria.getNome());
 	}
 }

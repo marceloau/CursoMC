@@ -4,6 +4,8 @@
 package com.aurino.cursoau.type;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -28,8 +30,12 @@ public class ClienteType implements Serializable{
 	@NotEmpty(message="Preenchimento Obrigatório")
 	@Email(message="Email inválido")
 	private String email;
+	@NotEmpty(message="Preenchimento Obrigatório")
+	@Length(min=11, max=14, message="O tamanho deve ser entre 11 e 14 caracteres")
 	private String cpfCNPJ;
 	private Integer codigoTipoCliente;
+	private List<EnderecoType> enderecos;
+	private Set<String> telefones;
 	
 	/**
 	 * 
@@ -125,5 +131,37 @@ public class ClienteType implements Serializable{
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+
+	/**
+	 * @return the enderecos
+	 */
+	public List<EnderecoType> getEnderecos() {
+		return enderecos;
+	}
+
+
+	/**
+	 * @param enderecos the enderecos to set
+	 */
+	public void setEnderecos(List<EnderecoType> enderecos) {
+		this.enderecos = enderecos;
+	}
+
+
+	/**
+	 * @return the telefones
+	 */
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+
+	/**
+	 * @param telefones the telefones to set
+	 */
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
 	}
 }

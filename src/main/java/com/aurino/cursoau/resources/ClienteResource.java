@@ -1,5 +1,6 @@
 package com.aurino.cursoau.resources;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.aurino.cursoau.dominio.Cliente;
 import com.aurino.cursoau.facade.ClienteFacade;
@@ -35,6 +37,17 @@ public class ClienteResource {
 		final Cliente cliente = clienteFacade.buscarPorCodigo(id);
 		
 		return ResponseEntity.ok().body(cliente);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<Void> salvar(@Valid @RequestBody ClienteType clienteType){
+		final Cliente cliente = clienteFacade.salvar(
+				clienteTypeConvert.converterParaEntidade(clienteType));
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(cliente.getId())
+				.toUri();
+		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value = "/{id}", method=RequestMethod.PUT)

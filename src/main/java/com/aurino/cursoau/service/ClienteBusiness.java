@@ -1,5 +1,6 @@
 package com.aurino.cursoau.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,12 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.aurino.cursoau.comum.Utils;
+import com.aurino.cursoau.dao.CidadeDAO;
 import com.aurino.cursoau.dao.ClienteDAO;
+import com.aurino.cursoau.dao.EnderecoDAO;
+import com.aurino.cursoau.dominio.Cidade;
 import com.aurino.cursoau.dominio.Cliente;
+import com.aurino.cursoau.dominio.Endereco;
 import com.aurino.cursoau.service.exceptions.BusinessException;
 import com.aurino.cursoau.service.exceptions.MensagensException;
 import com.aurino.cursoau.service.exceptions.ObjectNotFoundException;
@@ -21,6 +26,12 @@ public class ClienteBusiness implements IClienteBusiness {
 
 	@Autowired
 	private ClienteDAO clienteDAO;
+	
+	@Autowired
+	private CidadeDAO cidadeDAO;
+	
+	@Autowired
+	private EnderecoDAO enderecoDAO;
 	
 	@Override
 	public Cliente buscarPorCodigo(final Long codigoCliente) {
@@ -35,7 +46,22 @@ public class ClienteBusiness implements IClienteBusiness {
 	@Override
 	public Cliente salvar(final Cliente cliente) {
 		cliente.setId(null);
-		return clienteDAO.save(cliente);
+		if(!Utils.listaVaziaOuNula(cliente.getEnderecos())) {
+			final List<Endereco> listaEnderecos = new ArrayList<>();
+			for(final Endereco endereco : cliente.getEnderecos()) {
+				if(endereco.getCidade() == null) {
+					throw new BusinessException(MensagensException.ENDERECO_SEM_CIDADE.getValue());
+				}
+				final Cidade cidade = cidadeDAO.findOne(endereco.getCidade().getId());
+				endereco.setCidade(cidade);
+				endereco.setCliente(cliente);
+				listaEnderecos.add(endereco);
+			}
+			cliente.setEnderecos(listaEnderecos);
+		}
+		final Cliente clienteSalvo = clienteDAO.save(cliente);
+		enderecoDAO.save(clienteSalvo.getEnderecos());
+		return clienteSalvo;
 	}
 	
 	@Override
