@@ -13,11 +13,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.aurino.cursoau.dominio.Cliente;
 import com.aurino.cursoau.dominio.Contato;
+import com.aurino.cursoau.service.validacao.ClienteCadastro;
 
 /**
  * @author marcelo.aurino
  *
  */
+@ClienteCadastro
 public class ClienteType implements Serializable{
 
 	/**
