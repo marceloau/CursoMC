@@ -24,7 +24,7 @@ import com.aurino.cursoau.type.ClienteType;
  * @author marcelo.aurino
  *
  */
-public class ClienteCadastroValidador implements ConstraintValidator<ClienteCadastro, ClienteType> {
+public class ClienteAtualizacaoValidador implements ConstraintValidator<ClienteAtualizacao, ClienteType> {
 
 	private static final Integer TIPO_PESSOA_FISICA = 1;
 	private static final Integer TIPO_PESSOA_JURIDICA = 2;
@@ -36,48 +36,58 @@ public class ClienteCadastroValidador implements ConstraintValidator<ClienteCada
 	private ClienteDAO clienteDAO;
 	
 	@Override
-	public void initialize(ClienteCadastro ann) {
+	public void initialize(ClienteAtualizacao ann) {
 	}
 
 	@Override
 	public boolean isValid(ClienteType objType, ConstraintValidatorContext context) {
+		
 		List<CamposMensagem> list = new ArrayList<>();
-
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 
-		if(map.get("id") == null) {
+		if(map.get("id") != null) {
+
+			final Long uriId = Long.valueOf(map.get("id"));
+	
 			if(objType.getCodigoTipoCliente() == null) {
 				list.add(new CamposMensagem("codigoTipoCliente", "Tipo do cliente não pode ser nulo."));
 			}
 			
+			final Cliente clienteCPFCNPJ = clienteDAO.findBycpfCNPJ(objType.getCpfCNPJ());
+			
 			if(objType.getCodigoTipoCliente() != null) { 
 					
 				if(objType.getCodigoTipoCliente().equals(TIPO_PESSOA_FISICA)
-					&& !DocumentoUtil.isValidCPF(objType.getCpfCNPJ())) {
+					&& !DocumentoUtil.isValidCPF(objType.getCpfCNPJ())
+					&& !clienteCPFCNPJ.getId().equals(uriId)) {
 					list.add(new CamposMensagem("cpfCNPJ", "CPF inválido."));
-				}else if(objType.getCodigoTipoCliente().equals(TIPO_PESSOA_JURIDICA)
-					&& !DocumentoUtil.isValidCNPJ(objType.getCpfCNPJ())) {
+				}
+			
+				if(objType.getCodigoTipoCliente().equals(TIPO_PESSOA_JURIDICA)
+				&& !DocumentoUtil.isValidCNPJ(objType.getCpfCNPJ())
+				&& !clienteCPFCNPJ.getId().equals(uriId)) {
 					list.add(new CamposMensagem("cpfCNPJ", "CNPJ inválido."));
 				}
 				
-				final Cliente clienteCPFCNPJ = clienteDAO.findBycpfCNPJ(objType.getCpfCNPJ());
 				if(objType.getCodigoTipoCliente() == TIPO_PESSOA_FISICA
+						&& !clienteCPFCNPJ.getId().equals(uriId)
 						&& clienteCPFCNPJ != null) {
 					list.add(new CamposMensagem("cpfCNPJ", "CPF Já cadastrado."));
 				}else if(objType.getCodigoTipoCliente().equals(TIPO_PESSOA_JURIDICA)
+						&& !clienteCPFCNPJ.getId().equals(uriId)
 						&& clienteCPFCNPJ!= null) {
 					list.add(new CamposMensagem("cpfCNPJ", "CNPJ Já cadastrado."));
 				}
-			}	
+			}
 			
-			final Cliente cliente = clienteDAO.findByEmail(objType.getEmail());
+			final Cliente clienteEmail = clienteDAO.findByEmail(objType.getEmail());
 			
-			if(cliente != null) {
+			if(clienteEmail != null && !clienteEmail.getId().equals(uriId)) {
 				list.add(new CamposMensagem("email", "Email já cadastrado."));
 			}
 		}
-		
+
 		for (CamposMensagem e : list) {
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(e.getMensagem()).addPropertyNode(e.getNomeCampo())

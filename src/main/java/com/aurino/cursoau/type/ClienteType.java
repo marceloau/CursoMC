@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.aurino.cursoau.dominio.Cliente;
 import com.aurino.cursoau.dominio.Contato;
+import com.aurino.cursoau.service.validacao.ClienteAtualizacao;
 import com.aurino.cursoau.service.validacao.ClienteCadastro;
 
 /**
@@ -20,6 +21,7 @@ import com.aurino.cursoau.service.validacao.ClienteCadastro;
  *
  */
 @ClienteCadastro
+@ClienteAtualizacao
 public class ClienteType implements Serializable{
 
 	/**
