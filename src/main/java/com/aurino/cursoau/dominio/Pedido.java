@@ -4,6 +4,7 @@
 package com.aurino.cursoau.dominio;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
@@ -75,6 +76,14 @@ public class Pedido implements Serializable{
 		this.dataPedido = dataPedido;
 		this.cliente = cliente;
 		this.enderecoEntrega = enderecoEntrega;
+	}
+	
+	public BigDecimal getValorTotal() {
+		BigDecimal valorTotal = BigDecimal.ZERO;
+		for(final ItemPedido itemPedido : this.itens) {
+			valorTotal = valorTotal.add(itemPedido.getSubTotal());
+		}
+		return valorTotal;
 	}
 
 	/**
