@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 
 import org.springframework.stereotype.Component;
 
+import com.aurino.cursoau.dominio.Produto;
+
 /**
  * @author marcelo.aurino
  *
@@ -28,6 +30,20 @@ public class ProdutoType implements Serializable {
 	 */
 	public ProdutoType() {
 	}
+
+	/**
+	 * @param codigoProduto
+	 * @param nome
+	 * @param preco
+	 */
+	public ProdutoType(final Produto produto) {
+		super();
+		this.codigoProduto = produto.getId();
+		this.nome = produto.getNome();
+		this.preco = produto.getPreco();
+	}
+
+
 
 	/**
 	 * @return the codigoProduto
