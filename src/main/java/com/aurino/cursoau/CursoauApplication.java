@@ -138,12 +138,12 @@ public class CursoauApplication implements CommandLineRunner {
 		final ItemPedido itemPedido2 = new ItemPedido(pedido1, produto3, BigDecimal.valueOf(0.00), 2, BigDecimal.valueOf(80.00));
 		final ItemPedido itemPedido3 = new ItemPedido(pedido2, produto2, BigDecimal.valueOf(100.00), 1, BigDecimal.valueOf(800.00));
 		
-		pedido1.setItens(new HashSet<>(Arrays.asList(itemPedido1, itemPedido2)));
-		pedido2.setItens(new HashSet<>(Arrays.asList(itemPedido3)));
+		pedido1.setItens(Arrays.asList(itemPedido1, itemPedido2));
+		pedido2.setItens(Arrays.asList(itemPedido3));
 		
-		produto1.setItens(new HashSet<>(Arrays.asList(itemPedido1)));
-		produto2.setItens(new HashSet<>(Arrays.asList(itemPedido3)));
-		produto3.setItens(new HashSet<>(Arrays.asList(itemPedido2)));
+		produto1.setItens(Arrays.asList(itemPedido1));
+		produto2.setItens(Arrays.asList(itemPedido3));
+		produto3.setItens(Arrays.asList(itemPedido2));
 		
 		itemPedidoDAO.save(Arrays.asList(itemPedido1, itemPedido2, itemPedido3));
 	}

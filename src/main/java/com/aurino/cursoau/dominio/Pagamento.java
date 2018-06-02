@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import com.aurino.cursoau.enums.StatusPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
  * @author marcelo.aurino
@@ -25,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="pagamentos")
 @Inheritance(strategy=InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property="@type")
 public abstract class Pagamento implements Serializable{
 
 	/**

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.aurino.cursoau.enums.StatusPagamento;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * @author marcelo.aurino
@@ -15,6 +16,7 @@ import com.aurino.cursoau.enums.StatusPagamento;
  */
 @Entity
 @Table(name="pagamentos_cartao")
+@JsonTypeName("pagamentoCartao")
 public class PagamentoCartao extends Pagamento {
 
 	

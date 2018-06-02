@@ -5,8 +5,9 @@ package com.aurino.cursoau.dominio;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -55,7 +56,7 @@ public class Pedido implements Serializable{
 	private Endereco enderecoEntrega;
 	
 	@OneToMany(mappedBy="itemPedidoPK.pedido")
-	private Set<ItemPedido> itens;
+	private List<ItemPedido> itens = new ArrayList<>();
 	
 	/**
 	 * 
@@ -159,14 +160,14 @@ public class Pedido implements Serializable{
 	/**
 	 * @return the itens
 	 */
-	public Set<ItemPedido> getItens() {
+	public List<ItemPedido> getItens() {
 		return itens;
 	}
 
 	/**
 	 * @param itens the itens to set
 	 */
-	public void setItens(Set<ItemPedido> itens) {
+	public void setItens(List<ItemPedido> itens) {
 		this.itens = itens;
 	}
 

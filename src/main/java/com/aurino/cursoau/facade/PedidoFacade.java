@@ -20,4 +20,9 @@ public class PedidoFacade {
 		
 	}
 
+	public Pedido salvar(final Pedido pedido) {
+		
+		return iPedidoBusiness.salvar(pedido);
+		
+	}
 }

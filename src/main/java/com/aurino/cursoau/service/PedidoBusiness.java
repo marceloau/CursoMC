@@ -1,10 +1,18 @@
 package com.aurino.cursoau.service;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aurino.cursoau.dao.ItemPedidoDAO;
+import com.aurino.cursoau.dao.PagamentoDAO;
 import com.aurino.cursoau.dao.PedidoDAO;
+import com.aurino.cursoau.dao.ProdutoDAO;
+import com.aurino.cursoau.dominio.ItemPedido;
 import com.aurino.cursoau.dominio.Pedido;
+import com.aurino.cursoau.enums.StatusPagamento;
 import com.aurino.cursoau.service.exceptions.MensagensException;
 import com.aurino.cursoau.service.exceptions.ObjectNotFoundException;
 import com.aurino.cursoau.serviceInterface.IPedidoBusiness;
@@ -14,6 +22,15 @@ public class PedidoBusiness implements IPedidoBusiness {
 
 	@Autowired
 	private PedidoDAO pedidoDAO;
+	
+	@Autowired
+	private PagamentoDAO pagamentoDAO;
+	
+	@Autowired
+	private ProdutoDAO produtoDAO;
+	
+	@Autowired
+	private ItemPedidoDAO itemPedidoDAO;
 	
 	@Override
 	public Pedido buscarPorCodigo(final Long codigoPedido) {
@@ -27,6 +44,25 @@ public class PedidoBusiness implements IPedidoBusiness {
 		
 		return pedido;
 		
+	}
+	@Override
+	public Pedido salvar(final Pedido pedido) {
+		pedido.setId(null);
+		pedido.setDataPedido(new Date());
+		pedido.getPagamento().setCodigoStatus(StatusPagamento.PENDENTE);
+		pedido.getPagamento().setPedido(pedido);
+		final Pedido pedidoSalvo = pedidoDAO.save(pedido);
+		pedidoSalvo.setPagamento(pagamentoDAO.save(pedido.getPagamento()));
+		
+		for(final ItemPedido itemPedido : pedido.getItens()) {
+			itemPedido.setDesconto(BigDecimal.ZERO);
+			itemPedido.setPreco(produtoDAO.findOne(itemPedido.getProduto().getId()).getPreco());
+			itemPedido.setPedido(pedido);
+		}
+		
+		itemPedidoDAO.save(pedido.getItens());
+		
+		return pedidoSalvo;
 	}
 	
 }

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,7 +46,7 @@ public class Produto implements Serializable{
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="itemPedidoPK.produto")
-	private Set<ItemPedido> itens;
+	private List<ItemPedido> itens = new ArrayList<>();
 
 	public Produto() {
 	}
@@ -127,14 +126,14 @@ public class Produto implements Serializable{
 	/**
 	 * @return the itens
 	 */
-	public Set<ItemPedido> getItens() {
+	public List<ItemPedido> getItens() {
 		return itens;
 	}
 
 	/**
 	 * @param itens the itens to set
 	 */
-	public void setItens(Set<ItemPedido> itens) {
+	public void setItens(List<ItemPedido> itens) {
 		this.itens = itens;
 	}
 	

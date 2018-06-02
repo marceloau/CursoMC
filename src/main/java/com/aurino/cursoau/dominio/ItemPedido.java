@@ -71,6 +71,17 @@ public class ItemPedido implements Serializable{
 	public Pedido getPedido() {
 		return itemPedidoPK.getPedido();
 	}
+	/**
+	 * 
+	 * @param pedido
+	 */
+	public void setPedido(final Pedido pedido) {
+		this.itemPedidoPK.setPedido(pedido);
+	}
+	
+	public void setProduto(final Produto produto) {
+		this.itemPedidoPK.setProduto(produto);
+	}
 	
 	/**
 	 * @return the produto
