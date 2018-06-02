@@ -40,6 +40,7 @@ public class Pedido implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="codigo")	
 	private Long id;
+	
 	@JsonFormat(pattern="dd/MM/yyyy hh:mm:ss")
 	@Column(name="dataPedido")
 	private Date dataPedido;

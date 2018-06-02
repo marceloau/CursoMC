@@ -6,6 +6,8 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aurino.cursoau.dao.ClienteDAO;
+import com.aurino.cursoau.dao.EnderecoDAO;
 import com.aurino.cursoau.dao.ItemPedidoDAO;
 import com.aurino.cursoau.dao.PagamentoDAO;
 import com.aurino.cursoau.dao.PedidoDAO;
@@ -32,6 +34,12 @@ public class PedidoBusiness implements IPedidoBusiness {
 	@Autowired
 	private ItemPedidoDAO itemPedidoDAO;
 	
+	@Autowired
+	private EnderecoDAO enderecoDAO;
+	
+	@Autowired
+	private ClienteDAO clienteDAO;
+	
 	@Override
 	public Pedido buscarPorCodigo(final Long codigoPedido) {
 		
@@ -52,12 +60,16 @@ public class PedidoBusiness implements IPedidoBusiness {
 		pedido.getPagamento().setCodigoStatus(StatusPagamento.PENDENTE);
 		pedido.getPagamento().setPedido(pedido);
 		final Pedido pedidoSalvo = pedidoDAO.save(pedido);
+		
 		pedidoSalvo.setPagamento(pagamentoDAO.save(pedido.getPagamento()));
+		pedidoSalvo.setEnderecoEntrega(enderecoDAO.getOne(pedido.getEnderecoEntrega().getId()));
+		pedidoSalvo.setCliente(clienteDAO.getOne(pedido.getCliente().getId()));
 		
 		for(final ItemPedido itemPedido : pedido.getItens()) {
 			itemPedido.setDesconto(BigDecimal.ZERO);
 			itemPedido.setPreco(produtoDAO.findOne(itemPedido.getProduto().getId()).getPreco());
 			itemPedido.setPedido(pedido);
+			itemPedido.setProduto(produtoDAO.findOne(itemPedido.getProduto().getId()));
 		}
 		
 		itemPedidoDAO.save(pedido.getItens());

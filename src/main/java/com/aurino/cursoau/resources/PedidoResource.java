@@ -1,7 +1,5 @@
 package com.aurino.cursoau.resources;
 
-import java.net.URI;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.aurino.cursoau.dominio.Pedido;
 import com.aurino.cursoau.facade.PedidoFacade;
@@ -32,13 +29,9 @@ public class PedidoResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Valid @RequestBody Pedido pedido){
+	public ResponseEntity<Pedido> salvar(@Valid @RequestBody Pedido pedido){
 		final Pedido pedidoSalvo = pedidoFacade.salvar(pedido);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}")
-				.buildAndExpand(pedidoSalvo.getId())
-				.toUri();
-		return ResponseEntity.created(uri).build();
+		return ResponseEntity.ok().body(pedidoSalvo);
 	}
 
 }
