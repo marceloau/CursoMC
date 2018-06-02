@@ -28,7 +28,7 @@ public class ItemPedido implements Serializable{
 
 	@JsonIgnore
 	@EmbeddedId
-	private ItemPedidoPK itemPedidoPK;
+	private ItemPedidoPK itemPedidoPK = new ItemPedidoPK();
 	@Column(name="desconto")
 	private BigDecimal desconto;
 	@Column(name="quantidade")
@@ -75,12 +75,12 @@ public class ItemPedido implements Serializable{
 	 * 
 	 * @param pedido
 	 */
-	public void setPedido(final Pedido pedido) {
-		this.itemPedidoPK.setPedido(pedido);
+	public void setPedido(Pedido pedido) {
+		itemPedidoPK.setPedido(pedido);
 	}
 	
-	public void setProduto(final Produto produto) {
-		this.itemPedidoPK.setProduto(produto);
+	public void setProduto(Produto produto) {
+		itemPedidoPK.setProduto(produto);
 	}
 	
 	/**
