@@ -62,8 +62,8 @@ public class PedidoBusiness implements IPedidoBusiness {
 		final Pedido pedidoSalvo = pedidoDAO.save(pedido);
 		
 		pedidoSalvo.setPagamento(pagamentoDAO.save(pedido.getPagamento()));
-		pedidoSalvo.setEnderecoEntrega(enderecoDAO.getOne(pedido.getEnderecoEntrega().getId()));
-		pedidoSalvo.setCliente(clienteDAO.getOne(pedido.getCliente().getId()));
+		//pedidoSalvo.setEnderecoEntrega(enderecoDAO.getOne(pedido.getEnderecoEntrega().getId()));
+		//pedidoSalvo.setCliente(clienteDAO.getOne(pedido.getCliente().getId()));
 		
 		for(final ItemPedido itemPedido : pedido.getItens()) {
 			itemPedido.setDesconto(BigDecimal.ZERO);
